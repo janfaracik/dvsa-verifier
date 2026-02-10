@@ -27,13 +27,14 @@
 .card {
   background: white;
   border-radius: 1rem;
-  overflow: hidden;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 10%), 0 2px 5px 0 rgb(0 0 0 / 15%);
 
   .card__snippet {
     display: block;
     background: #8ac0c3;
     padding: 1rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
   }
 
   .card__contents {
@@ -44,8 +45,8 @@
     margin: 1rem;
 
     img {
-      width: 5rem;
-      height: 5rem;
+      width: 6rem;
+      height: 6rem;
       filter: brightness(0.95);
     }
 
@@ -63,6 +64,17 @@
       margin: 0;
       word-break: break-all;
     }
+  }
+
+  .buttons {
+    background: rgb(255 255 255 / 0.85);
+    backdrop-filter: blur(2px);
+    flex-direction: row;
+    justify-content: space-between;
+    position: sticky;
+    bottom: 0;
+    margin-bottom: -1rem;
+    padding-bottom: 1rem;
   }
 }
 

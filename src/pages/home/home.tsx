@@ -38,7 +38,7 @@ export default function Home() {
                     </>
                 )}
             </div>
-            <div className={"card__contents"} style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <div className={"card__contents buttons"}>
                 <button className={"wallet-button"} onClick={() => setIsExpanded(!isExpanded)}>
                     <DownArrow style={{ rotate: isExpanded ? "180deg" : "0deg" }} />
                     {isExpanded ? "Hide" : "Show"} details
