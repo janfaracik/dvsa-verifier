@@ -30,5 +30,4 @@ body {
   display: flex;
   place-items: stretch;
   flex-direction: column;
-  width: 375px;
 }

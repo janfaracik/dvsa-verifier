@@ -31,6 +31,7 @@
   box-shadow: 0 0 0 1px rgb(0 0 0 / 10%), 0 2px 5px 0 rgb(0 0 0 / 15%);
 
   .card__snippet {
+    display: block;
     background: #8ac0c3;
     padding: 1rem;
   }
@@ -48,11 +49,11 @@
       filter: brightness(0.95);
     }
 
-    &:last-of-type {
+    &:not(:first-of-type) {
       border-top: 1px solid #ccc;
       padding-top: 1rem;
 
-      svg {
+      & > svg {
         height: 3rem;
       }
     }
@@ -76,3 +77,34 @@
     color: #484949;
   }
 }
+
+.wallet-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-weight: bold;
+  color: #0f7a52;
+  appearance: none;
+  background: none;
+  outline: none;
+  border: none;
+  gap: 0.5rem;
+  padding: 0;
+  cursor: pointer;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+
+    * {
+      stroke-width: 42px;
+    }
+  }
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
