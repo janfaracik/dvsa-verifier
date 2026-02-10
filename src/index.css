@@ -34,4 +34,5 @@ body {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   min-height: 100lvh;
+  touch-action: manipulation;
 }
