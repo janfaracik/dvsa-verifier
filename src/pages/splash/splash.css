@@ -1,0 +1,14 @@
+.splash {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 75vw;
+    max-width: 350px;
+  }
+}
