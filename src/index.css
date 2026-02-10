@@ -40,4 +40,9 @@ body {
     background: var(--accent);
     color: white;
   }
+
+  &:has(.blackApp) {
+    background: black;
+    color: white;
+  }
 }

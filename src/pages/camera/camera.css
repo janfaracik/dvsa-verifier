@@ -89,13 +89,15 @@
   gap: 1rem;
   padding: 1rem;
   background: linear-gradient(rgb(0 0 0 / 0.75), transparent 33vh, transparent, transparent 66vh, rgb(0 0 0 / 0.75));
-  filter: drop-shadow(0 0 0.5rem rgb(0 0 0 / 50%));
 }
 
 .cameraControls {
+  position: absolute;
+  bottom: calc(3rem + env(safe-area-inset-bottom));
+  left: 3rem;
+  right: 3rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
 }
 
 .cameraButton {
@@ -110,28 +112,24 @@
   color: inherit;
   font-weight: bold;
   cursor: pointer;
-  border-radius: 0.75rem;
-}
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 
-.cameraButton:hover {
-  background: rgb(255 255 255 / 0.2);
-}
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
 
-.cameraButton:active {
-  margin-top: 2px;
-  border-bottom: none;
-  box-shadow: none;
-}
+  &:hover {
+    background: rgb(255 255 255 / 0.2);
+  }
 
-.cameraButtonSecondary {
-  background: rgb(0 0 0 / 0.15);
-  border-bottom-color: rgb(0 0 0 / 0.15);
-}
-
-.cameraError {
-  background: rgb(0 0 0 / 0.15);
-  border: 1px solid rgb(255 255 255 / 20%);
-  border-radius: 0.75rem;
-  padding: 0.75rem 1rem;
-  line-height: 1.4;
+  &:active {
+    margin-top: 2px;
+    border-bottom: none;
+    box-shadow: none;
+  }
 }
