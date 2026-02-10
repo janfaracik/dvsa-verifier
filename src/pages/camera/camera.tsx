@@ -56,7 +56,7 @@ export default function Camera() {
 
     useEffect(() => {
         // Start automatically when this page mounts
-        void startCamera();
+        // void startCamera();
 
         // Clean up when leaving the page
         return () => stopCamera();
@@ -65,24 +65,21 @@ export default function Camera() {
 
     return (
         <div className={'blueApp'}>
-            <Logo width={100} />
-
-            <h1 className="cameraTitle">Scan a QR code</h1>
-            <div className="cameraSubtitle">
-                Point your device at the QR code. We’ll use the back camera if available.
+            <div className="cameraViewport" aria-label="Camera preview">
+                <video
+                    ref={videoRef}
+                    className="cameraVideo"
+                    muted
+                    playsInline
+                    autoPlay
+                />
             </div>
 
-            <div className="cameraShell">
-                <div className="cameraViewport" aria-label="Camera preview">
-                    <video
-                        ref={videoRef}
-                        className="cameraVideo"
-                        muted
-                        playsInline
-                        autoPlay
-                    />
-                    <div className="cameraOverlay" />
-                </div>
+            <div className={"cameraOverlay"}>
+                <Logo width={100} />
+
+                <h1 className="cameraTitle">Scan a QR code</h1>
+                <div className="cameraSubtitle">Point your device at the QR code and tap Scan.</div>
 
                 <div className="cameraControls">
                     {!isRunning ? (
