@@ -3,9 +3,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.25;
-  font-weight: 400;
   font-size: 19px;
-  background-color: #242424;
+  background-color: #f4f8fb;
+  color: #0b0c0c;
   --accent: #1d70b8;
 }
 
@@ -30,4 +30,5 @@ body {
   display: flex;
   place-items: stretch;
   flex-direction: column;
+  width: 375px;
 }

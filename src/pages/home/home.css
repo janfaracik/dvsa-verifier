@@ -2,8 +2,26 @@
   display: flex;
   align-items: stretch;
   flex-direction: column;
-  background-color: #eee;
   padding: 1rem;
+}
+
+.qr {
+  position: fixed;
+  inset: 0;
+  background: white;
+  filter: brightness(10);
+  transition: 0.4s ease;
+  box-shadow: 0 0 0 100vmax rgb(0 0 0 / 0.5);
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  &:not(.qr-open) {
+    box-shadow: 0 0 0 100vmax transparent;
+    translate: 0 100%;
+  }
 }
 
 .card {
