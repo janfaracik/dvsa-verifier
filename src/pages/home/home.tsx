@@ -21,13 +21,13 @@ export default function Home() {
             <div className={"card__contents"}>
                 {!isExpanded && (
                     <>
-                        <Snippet title={"Licence number"} contents={"BERNI990605MB99"} />
+                        <Snippet title={"Licence number"} contents={"BERNI990605MB99"} monospace />
                         <Snippet title={"Date of expiry"} contents={"8 July 2035"} />
                     </>
                 )}
                 {isExpanded && (
                     <>
-                        <h2>BERNI990605MB99</h2>
+                        <h2 style={{ fontFamily: "ui-monospace" }}>BERNI990605MB99</h2>
                         <img src="/dvsa-verifier/person.jpeg" alt={"Matt Berninger"} />
                         <Snippet title={"Date of issue"} contents={"9 July 2025"} />
                         <Snippet title={"Date of expiry"} contents={"8 July 2035"} />
@@ -59,9 +59,9 @@ export default function Home() {
     </div>
 }
 
-function Snippet({ title, contents }: { title: string, contents: string }) {
+function Snippet({ title, contents, monospace }: { title: string, contents: string, monospace?: boolean }) {
     return <div className={"snippet"}>
         <div>{title}</div>
-        <div>{contents}</div>
+        <div style={{ fontFamily: monospace ? "ui-monospace" : "" }}>{contents}</div>
     </div>
 }
