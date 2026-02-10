@@ -1,5 +1,6 @@
 {
   "name": "dvsa-verifier",
+  "homepage": "https://janfaracik.github.io/dvsa-verifier/",
   "private": true,
   "version": "0.0.0",
   "type": "module",

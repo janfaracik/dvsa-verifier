@@ -7,6 +7,7 @@
   background-color: #f4f8fb;
   color: #0b0c0c;
   --accent: #1d70b8;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 @font-face {
@@ -30,4 +31,6 @@ body {
   display: flex;
   place-items: stretch;
   flex-direction: column;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }

@@ -28,7 +28,7 @@ export default function Home() {
                 {isExpanded && (
                     <>
                         <h2>BERNI990605MB99</h2>
-                        <img src="public/person.jpeg" alt={"Matt Berninger"} />
+                        <img src="/dvsa-verifier/person.jpeg" alt={"Matt Berninger"} />
                         <Snippet title={"Date of issue"} contents={"9 July 2025"} />
                         <Snippet title={"Date of expiry"} contents={"8 July 2035"} />
                         <Snippet title={"First name"} contents={"Matt"} />

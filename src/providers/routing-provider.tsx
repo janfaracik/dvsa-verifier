@@ -8,11 +8,13 @@ import React, {
 /* ------------------ Types ------------------ */
 
 type RouterContextValue = {
-    path: string;
+    /** Simple hash route: "", "home", "validate", ... */
+    route: string;
     navigate: (to: string) => void;
 };
 
 type RouteProps = {
+    /** Simple hash route: "", "home", "validate", ... */
     path: string;
     children: ReactNode;
 };
@@ -25,29 +27,58 @@ type RouterProps = {
 
 const RouterContext = createContext<RouterContextValue | null>(null);
 
+/* ------------------ Helpers ------------------ */
+
+function normalizeRoute(to: string) {
+    // Accept: "", "home", "#home", "#/home", "/home"
+    const trimmed = (to ?? "").trim();
+
+    if (!trimmed || trimmed === "#" || trimmed === "#/" || trimmed === "/") return "";
+
+    let s = trimmed;
+    if (s.startsWith("#")) s = s.slice(1);
+    if (s.startsWith("/")) s = s.slice(1);
+
+    // Ignore query/hash fragments after the route token
+    s = s.split("?")[0].split("#")[0];
+
+    // Only the first segment is used (simple routes)
+    const first = s.split("/")[0];
+
+    return first || "";
+}
+
+function getHashRoute() {
+    // window.location.hash includes the leading '#'
+    return normalizeRoute(window.location.hash);
+}
+
 /* ------------------ Provider ------------------ */
 
 export function Router({ children }: RouterProps) {
-    const [path, setPath] = useState(() => window.location.pathname);
+    const [route, setRoute] = useState(() => getHashRoute());
 
     useEffect(() => {
-        const onPopState = () => {
-            setPath(window.location.pathname);
-        };
+        const onHashChange = () => setRoute(getHashRoute());
 
-        window.addEventListener("popstate", onPopState);
-        return () => window.removeEventListener("popstate", onPopState);
+        window.addEventListener("hashchange", onHashChange);
+        onHashChange();
+
+        return () => window.removeEventListener("hashchange", onHashChange);
     }, []);
 
     const navigate = (to: string) => {
-        if (to !== window.location.pathname) {
-            window.history.pushState({}, "", to);
-            setPath(to);
-        }
+        const next = normalizeRoute(to);
+        const current = getHashRoute();
+
+        if (next === current) return;
+
+        // Always uses hash. Root is just "#" (or empty hash, but this is explicit).
+        window.location.hash = next ? `#${next}` : "#";
     };
 
     return (
-        <RouterContext.Provider value={{ path, navigate }}>
+        <RouterContext.Provider value={{ route, navigate }}>
             {children}
         </RouterContext.Provider>
     );
@@ -57,7 +88,8 @@ export function Router({ children }: RouterProps) {
 
 export function Route({ path, children }: RouteProps) {
     const router = useRouter();
-    return router.path === path ? <>{children}</> : null;
+    const expected = normalizeRoute(path);
+    return router.route === expected ? <>{children}</> : null;
 }
 
 /* ------------------ Link ------------------ */
@@ -69,6 +101,8 @@ type LinkProps = {
 
 export function Link({ to, children }: LinkProps) {
     const { navigate } = useRouter();
+    const normalized = normalizeRoute(to);
+    const href = normalized ? `#${normalized}` : "#";
 
     const onClick = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -76,7 +110,7 @@ export function Link({ to, children }: LinkProps) {
     };
 
     return (
-        <a href={to} onClick={onClick}>
+        <a href={href} onClick={onClick}>
             {children}
         </a>
     );
