@@ -70,13 +70,9 @@ export default function Camera() {
                 <h1 className="cameraTitle">Scan a QR code</h1>
                 <div className="cameraSubtitle">Point your device at the QR code and tap Scan.</div>
 
-                {!isRunning ? (
+                {!isRunning && (
                     <button className="cameraButton" onClick={() => void startCamera()}>
                         Start camera
-                    </button>
-                ) : (
-                    <button className="cameraButton cameraButtonSecondary" onClick={stopCamera}>
-                        Stop camera
                     </button>
                 )}
 
