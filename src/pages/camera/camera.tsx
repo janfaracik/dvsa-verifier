@@ -33,6 +33,7 @@ export default function Camera({open}: CameraProps) {
 
     setTimeout(() => {
       setPersonDetailsOpen(true);
+      stopCamera();
     }, 6000)
   }, [isResponseOpen]);
 
