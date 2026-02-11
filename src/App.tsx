@@ -18,10 +18,6 @@ export default function App() {
             <Route path="verify">
                 <Verify />
             </Route>
-
-            <Route path="camera">
-                <Camera />
-            </Route>
         </Router>
     );
 }
