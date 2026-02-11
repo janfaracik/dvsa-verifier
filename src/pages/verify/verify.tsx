@@ -14,7 +14,7 @@ export default function Verify() {
                 <h1 style={{ margin: 0, fontSize: "1.75rem", textWrap: "pretty" }}>Check a digital driving licence with a QR code</h1>
                 <div style={{ lineHeight: "1.5" }}>Point your device at the QR code on the licence. The service will confirm it’s genuine and valid. Personal information is kept secure and used only to verify the licence.</div>
                 <button onClick={() => setIsCameraOpen(!isCameraOpen)}>
-                    Start scanning
+                    Start
                     <Start style={{ position: "absolute", right: "0.75rem", width: "0.625rem" }} />
                 </button>
             </div>

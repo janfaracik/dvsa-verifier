@@ -3,6 +3,7 @@ import Logo from "../../components/logo/logo.tsx";
 import {useEffect, useRef, useState} from "react";
 import QrIcon from "../../components/logo/qr-icon.tsx";
 import {SystemPrompt} from "../../components/system-prompt/system-prompt.tsx";
+import User from "../../components/logo/user.tsx";
 
 interface CameraProps {
   open: boolean,
@@ -80,7 +81,7 @@ export default function Camera({open}: CameraProps) {
         />
       </div>
 
-      <SystemPrompt isOpen={isResponseOpen} title={"Waiting for response"} description={"User needs to approve."} />
+      <SystemPrompt isOpen={isResponseOpen} icon={<User />} title={"Waiting for approval"} description={"The individual needs to approve on their device to continue."} />
 
       <div className={'cameraFrame'} />
 

@@ -2,13 +2,28 @@ import './home.css';
 import Logo from "../../components/logo/logo.tsx";
 import DvsaLogo from "../../components/logo/dvsa-logo.tsx";
 import QrCode from "../../components/logo/qr.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import DownArrow from "../../components/logo/down.tsx";
 import QrIcon from "../../components/logo/qr-icon.tsx";
+import {SystemPrompt} from "../../components/system-prompt/system-prompt.tsx";
+import ShareIcon from "../../components/logo/share.tsx";
 
 export default function Home() {
     const [isExpanded, setIsExpanded] = useState(false);
     const [isQrCodeOpen, setIsQrCodeOpen] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(true);
+
+    useEffect(() => {
+        if (!isQrCodeOpen) return;
+
+        const timeoutId = window.setTimeout(() => {
+            setIsDialogOpen(true);
+        }, 3000);
+
+        return () => {
+            window.clearTimeout(timeoutId);
+        };
+    }, [isQrCodeOpen]);
 
     return <div className={'app'}>
         <Logo width={100} />
@@ -52,6 +67,16 @@ export default function Home() {
                 <DvsaLogo />
             </div>
         </div>
+
+        <SystemPrompt isOpen={isDialogOpen} icon={<ShareIcon />} title={"Share details with GOV.UK Verifier?"} description={"This will share the following information:"}>
+            <ul>
+                <li>Licence number</li>
+                <li>First and last name</li>
+                <li>Date of birth</li>
+            </ul>
+            <button className={"primary"}>Share details</button>
+            <button onClick={() => setIsDialogOpen(false)}>Cancel</button>
+        </SystemPrompt>
 
         <div className={"qr " + (isQrCodeOpen ? "qr-open" : "")} onClick={() => setIsQrCodeOpen(!isQrCodeOpen)}>
             <QrCode />
