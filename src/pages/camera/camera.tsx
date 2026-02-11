@@ -29,6 +29,8 @@ export default function Camera({open}: CameraProps) {
   };
 
   useEffect(() => {
+    if (!isResponseOpen) return;
+
     setTimeout(() => {
       setPersonDetailsOpen(true);
     }, 6000)
