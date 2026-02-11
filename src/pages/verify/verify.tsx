@@ -20,6 +20,6 @@ export default function Verify() {
             </div>
         </div>
 
-        <Camera open={isCameraOpen} setIsCameraOpen={setIsCameraOpen} />
+        <Camera open={isCameraOpen} />
     </div>
 }

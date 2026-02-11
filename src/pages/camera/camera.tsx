@@ -1,16 +1,17 @@
 import './camera.css';
 import Logo from "../../components/logo/logo.tsx";
-import {type Dispatch, type SetStateAction, useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import QrIcon from "../../components/logo/qr-icon.tsx";
+import {SystemPrompt} from "../../components/system-prompt/system-prompt.tsx";
 
 interface CameraProps {
   open: boolean,
-  setIsCameraOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Camera({open, setIsCameraOpen}: CameraProps) {
+export default function Camera({open}: CameraProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  const [isResponseOpen, setIsResponseOpen] = useState(false);
 
   const stopCamera = () => {
     const stream = streamRef.current;
@@ -79,6 +80,8 @@ export default function Camera({open, setIsCameraOpen}: CameraProps) {
         />
       </div>
 
+      <SystemPrompt isOpen={isResponseOpen} title={"Waiting for response"} description={"User needs to approve."} />
+
       <div className={'cameraFrame'} />
 
       <div className={"cameraOverlay"}>
@@ -88,7 +91,7 @@ export default function Camera({open, setIsCameraOpen}: CameraProps) {
         <div className="cameraSubtitle">Point your device at the QR code and tap Scan.</div>
 
         <div className="cameraControls">
-          <button className={"cameraButton"} onClick={() => setIsCameraOpen(false)}>
+          <button className={"cameraButton"} onClick={() => setIsResponseOpen(true)}>
             <QrIcon/>
             Scan
           </button>
