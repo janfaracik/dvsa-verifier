@@ -7,11 +7,13 @@ import DownArrow from "../../components/logo/down.tsx";
 import QrIcon from "../../components/logo/qr-icon.tsx";
 import {SystemPrompt} from "../../components/system-prompt/system-prompt.tsx";
 import ShareIcon from "../../components/logo/share.tsx";
+import CheckIcon from "../../components/logo/check.tsx";
 
 export default function Home() {
     const [isExpanded, setIsExpanded] = useState(false);
     const [isQrCodeOpen, setIsQrCodeOpen] = useState(false);
-    const [isDialogOpen, setIsDialogOpen] = useState(true);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
 
     useEffect(() => {
         if (!isQrCodeOpen) return;
@@ -24,6 +26,13 @@ export default function Home() {
             window.clearTimeout(timeoutId);
         };
     }, [isQrCodeOpen]);
+
+    function showSuccessDialog() {
+        setIsDialogOpen(false);
+        setTimeout(() => {
+            setIsSuccessDialogOpen(true);
+        }, 400);
+    }
 
     return <div className={'app'}>
         <Logo width={100} />
@@ -74,8 +83,15 @@ export default function Home() {
                 <li>First and last name</li>
                 <li>Date of birth</li>
             </ul>
-            <button className={"primary"}>Share details</button>
+            <button className={"primary"} onClick={showSuccessDialog}>Share details</button>
             <button onClick={() => setIsDialogOpen(false)}>Cancel</button>
+        </SystemPrompt>
+
+        <SystemPrompt isOpen={isSuccessDialogOpen} icon={<CheckIcon />} title={"Your information has been shared successfully"} description={"You can close this screen and return to the staff member."}>
+            <button className={"primary"} onClick={() => {
+                setIsSuccessDialogOpen(false);
+                setIsQrCodeOpen(false);
+            }}>Close</button>
         </SystemPrompt>
 
         <div className={"qr " + (isQrCodeOpen ? "qr-open" : "")} onClick={() => setIsQrCodeOpen(!isQrCodeOpen)}>
@@ -84,7 +100,7 @@ export default function Home() {
     </div>
 }
 
-function Snippet({ title, contents, monospace }: { title: string, contents: string, monospace?: boolean }) {
+export function Snippet({ title, contents, monospace }: { title: string, contents: string, monospace?: boolean }) {
     return <div className={"snippet"}>
         <div>{title}</div>
         <div style={{ fontFamily: monospace ? "ui-monospace" : "" }}>{contents}</div>

@@ -78,18 +78,6 @@
   }
 }
 
-.snippet {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  white-space: pre-line;
-
-  div:first-of-type {
-    font-size: 16px;
-    color: #484949;
-  }
-}
-
 .wallet-button {
   display: flex;
   align-items: center;

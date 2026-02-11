@@ -4,6 +4,7 @@ import {useEffect, useRef, useState} from "react";
 import QrIcon from "../../components/logo/qr-icon.tsx";
 import {SystemPrompt} from "../../components/system-prompt/system-prompt.tsx";
 import User from "../../components/logo/user.tsx";
+import PersonDetails from "../person-details/person-details.tsx";
 
 interface CameraProps {
   open: boolean,
@@ -13,6 +14,7 @@ export default function Camera({open}: CameraProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const [isResponseOpen, setIsResponseOpen] = useState(false);
+  const [personDetailsOpen, setPersonDetailsOpen] = useState(false);
 
   const stopCamera = () => {
     const stream = streamRef.current;
@@ -25,6 +27,12 @@ export default function Camera({open}: CameraProps) {
       videoRef.current.srcObject = null;
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setPersonDetailsOpen(true);
+    }, 6000)
+  }, [isResponseOpen]);
 
   const startCamera = async () => {
     try {
@@ -71,7 +79,7 @@ export default function Camera({open}: CameraProps) {
 
   return (
     <div className={'blackApp ' + (open ? 'openCamera' : '')}>
-      <div className="cameraViewport" aria-label="Camera preview">
+      <div className="cameraViewport" aria-label="PersonDetails preview">
         <video
           ref={videoRef}
           className="cameraVideo"
@@ -98,6 +106,8 @@ export default function Camera({open}: CameraProps) {
           </button>
         </div>
       </div>
+
+      <PersonDetails open={personDetailsOpen} />
     </div>
   );
 }

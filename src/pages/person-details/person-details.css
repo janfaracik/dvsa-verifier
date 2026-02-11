@@ -1,0 +1,62 @@
+.personDetails {
+  position: fixed;
+  inset: 0;
+  transition: 0.3s ease;
+  background: white;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  padding: 1rem;
+  padding-top: calc(1rem + env(safe-area-inset-top));
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  gap: 1rem;
+  background: linear-gradient(#0f7a52, #0f7a52 calc(200px + env(safe-area-inset-top)), white calc(200px + env(safe-area-inset-top)), white);
+
+  svg {
+    flex-shrink: 0;
+    color: white;
+  }
+
+  img {
+    width: 100%;
+    filter: brightness(0.95);
+  }
+
+  &:not(.personDetails--open) {
+    translate: 0 100%;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    appearance: none;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid rgb(0 0 0 / 0.25);
+    background: rgb(0 0 0 / 0.075);
+    box-shadow: 0 2px rgb(0 0 0 / 5%);
+    font: inherit;
+    padding: 0.625rem 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    background: var(--accent);
+    color: white;
+    font-weight: bold;
+    margin-top: 1rem;
+
+    &:hover {
+      background: color-mix(in srgb, transparent 10%, var(--accent));
+    }
+
+    &:active {
+      background: color-mix(in srgb, transparent 20%, var(--accent));
+      margin-top: calc(1rem + 2px);
+      border-bottom: none;
+      box-shadow: none;
+    }
+  }
+}
