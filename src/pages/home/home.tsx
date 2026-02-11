@@ -31,7 +31,7 @@ export default function Home() {
         setIsDialogOpen(false);
         setTimeout(() => {
             setIsSuccessDialogOpen(true);
-        }, 4000);
+        }, 5000);
     }
 
     return <div className={'app'}>
@@ -83,7 +83,7 @@ export default function Home() {
                 <li>First and last name</li>
                 <li>Date of birth</li>
             </ul>
-            <button className={"primary"} onClick={showSuccessDialog}>Share details</button>
+            <button className={"primary"} onClick={() => showSuccessDialog()}>Share details</button>
             <button onClick={() => setIsDialogOpen(false)}>Cancel</button>
         </SystemPrompt>
 
