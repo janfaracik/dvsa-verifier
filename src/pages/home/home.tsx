@@ -31,7 +31,7 @@ export default function Home() {
         setIsDialogOpen(false);
         setTimeout(() => {
             setIsSuccessDialogOpen(true);
-        }, 400);
+        }, 4000);
     }
 
     return <div className={'app'}>
