@@ -79,6 +79,8 @@ export default function Camera({open, setIsCameraOpen}: CameraProps) {
         />
       </div>
 
+      <div className={'cameraFrame'} />
+
       <div className={"cameraOverlay"}>
         <Logo width={100}/>
 
