@@ -1,6 +1,6 @@
 import './camera.css';
 import Logo from "../../components/logo/logo.tsx";
-import {type Dispatch, type SetStateAction, useRef, useState} from "react";
+import {type Dispatch, type SetStateAction, useEffect, useRef} from "react";
 import QrIcon from "../../components/logo/qr-icon.tsx";
 
 interface CameraProps {
@@ -12,8 +12,6 @@ export default function Camera({open, setIsCameraOpen}: CameraProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
-  const [isRunning, setIsRunning] = useState(false);
-
   const stopCamera = () => {
     const stream = streamRef.current;
     if (stream) {
@@ -24,8 +22,6 @@ export default function Camera({open, setIsCameraOpen}: CameraProps) {
     if (videoRef.current) {
       videoRef.current.srcObject = null;
     }
-
-    setIsRunning(false);
   };
 
   const startCamera = async () => {
@@ -34,8 +30,8 @@ export default function Camera({open, setIsCameraOpen}: CameraProps) {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: {ideal: "environment"},
-          width: {ideal: 1280},
-          height: {ideal: 1280},
+          width: {ideal: 2000},
+          height: {ideal: 2000},
         },
         audio: false,
       });
@@ -47,8 +43,6 @@ export default function Camera({open, setIsCameraOpen}: CameraProps) {
         // iOS Safari requires these for autoplaying inline video
         await videoRef.current.play();
       }
-
-      setIsRunning(true);
     } catch (e) {
       stopCamera();
       const message =
@@ -56,6 +50,22 @@ export default function Camera({open, setIsCameraOpen}: CameraProps) {
       alert(message);
     }
   };
+
+  // Start/stop when `open` changes
+  useEffect(() => {
+    if (open) {
+      void startCamera();
+    } else {
+      stopCamera();
+    }
+
+    // Cleanup on unmount too
+    return () => {
+      stopCamera();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
 
   return (
     <div className={'blackApp ' + (open ? 'openCamera' : '')}>
@@ -74,12 +84,6 @@ export default function Camera({open, setIsCameraOpen}: CameraProps) {
 
         <h1 className="cameraTitle">Scan a QR code</h1>
         <div className="cameraSubtitle">Point your device at the QR code and tap Scan.</div>
-
-        {!isRunning && (
-          <button className="cameraButton" onClick={() => void startCamera()}>
-            Start camera
-          </button>
-        )}
 
         <div className="cameraControls">
           <button className={"cameraButton"} onClick={() => setIsCameraOpen(false)}>
